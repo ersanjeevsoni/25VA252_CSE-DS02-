@@ -2,6 +2,7 @@
 
 //function :- block of code , execute or perform a particuler task
 
+
 //sync or async
 //by deault sync mean in which order they are defind , in same order will be accessed
 
@@ -106,7 +107,8 @@ function displayData(user){
 
 fetchData(displayData); */
 
-function displayName(name){
+// call back using setTimeout API
+/* function displayName(name){
     console.log("hello "+ name);
 }
 
@@ -119,4 +121,108 @@ setTimeout(function(){
 },2000);
 }
 
-demo1(displayName);
+demo1(displayName); */
+
+   //Promises:A Promise represents the result of an asynchronous operation.
+
+   let promise=new Promise((resolve, reject)=>{
+     let age =2;
+     if(age>=18){
+        resolve("Valid age")
+     }
+     else{
+        reject("wait next year")
+     }
+   });
+//    promise.then(result=>console.log(result)).catch(error=>console.log(error));
+   promise.then(result=>console.log(result)).catch(error=>console.log(error)).finally(()=>console.log("Done"));
+
+
+   //async / await: async and await allow asynchronous code to be written in a synchronous style.
+
+/* async function userdata() {
+    let response=await fetch('https://fakestoreapi.com/products');
+    let data=await response.json();
+    console.log(data);
+}
+userdata(); */
+//above code using try and catch error handling....
+async function userdata() {
+    try {
+        //api https://fakestoreapi.com/products
+        let response = await fetch('https://jsonplaceholder.typicode.com/todos/1');
+        let data = await response.json();
+        console.log(data);
+    } catch (error) {
+        console.log("Error fetching data:", error);
+    }
+}
+userdata();
+
+
+//json:- JSON (JavaScript Object Notation) is a widely-used, lightweight data format for representing structured data.
+// Parse JSON to Object
+// To parse a JSON string into a JavaScript object, use JSON.parse().
+
+let jsonS = '{"name": "Mohit", "age": 30}';
+let jsonObj = JSON.parse(jsonS);
+console.log(jsonObj.name);
+
+// Output
+// Mohit
+
+// Convert Object to JSON
+// To convert a Javascript object into a JSON string, use JSON.stringify()
+
+let obj = {name: "Mohit", age: 30};
+let jsonS1= JSON.stringify(obj);
+console.log(jsonS1);
+
+// Output
+// {"name":"Mohit","age":30}
+
+//high order function:-Higher-order functions help make your code more reusable and modular by allowing you to work with functions like any other value.
+//JavaScript includes several built-in array methods that are common examples of higher-order functions
+// Map, filter and reduce method
+
+//map(): Creates a new array by applying a callback function to each element in the original array, transforming the data.
+ let num=[1,2,3,4];
+
+//  let result=num.map(n=>n+2);
+//  console.log(result);
+
+//reduce(): Accumulates an array into a single value (e.g., a sum, a product, or a new object) by applying a callback function to each element and a running total.
+//   let result=num.reduce((sum,n)=>sum+n,0);
+//   console.log(result);
+
+//filter(): Creates a new array containing only the elements that satisfy a specific condition defined by the callback function.
+   let result=num.filter((n=>n>2));
+   console.log(result);
+
+   //some others are 
+   // forEach(): Executes a provided function once for each array element, typically used for side effects (like logging to the console).
+// find() / some() / every(): These methods also take a function as an argument to test conditions against array elements.
+
+//local storage
+//JavaScript localStorage is a feature that allows web applications to store persistent, non-sensitive data as key-value pairs within the user's browser, with no expiration date. Data stored with localStorage remains available even after the browser is closed and reopened.
+
+// Storing an object
+const userData = {
+  name: 'John',
+  age: 26
+};
+//
+// Convert object to string using stringify
+let data=JSON.stringify(userData);
+
+// set data
+localStorage.setItem('preferences', data); 
+
+// Retrieving and parsing the object back
+const storedPreferencesString = localStorage.getItem('preferences');
+
+ // Convert string back to object
+const storedPreferences = JSON.parse(storedPreferencesString);
+
+
+console.log(storedPreferences.name); // Outputs: John
